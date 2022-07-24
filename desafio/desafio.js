@@ -3,6 +3,8 @@ const Forca = require('./forca');
 
 const jogo = new Forca('abacaxi');
 
+console.log(jogo.palavra)
+
 while (!["perdeu", "ganhou"].includes(jogo.buscarEstado())) {
     const chute = readline.question("Aguardando chute: \n");
     jogo.chutar(chute);

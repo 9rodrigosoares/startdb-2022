@@ -1,14 +1,45 @@
 class Forca {
 
-  chutar(letra) { }
+  caracteres = [];
+  vidas = 6;
+  letrasChutadas = [];
+  palavra = [];
 
-  buscarEstado() { return ""; } // Possiveis valores: "perdeu", "aguardando chute" ou "ganhou"
+  constructor(palavra) {
+    this.caracteres = palavra.split("");
+    this.palavra = this.caracteres.map(char => { return "_"})
+  }
+  
+  chutar(letra) {
+    
+    if (this.caracteres.includes(letra)) {
+      this.caracteres.forEach((valor,pos) => {
+        if(valor == letra) {
+          this.palavra[pos] = letra;
+        }
+      })
+    } else {
+      this.vidas--;
+    }
+    
+    this.letrasChutadas.push(letra);
+   }
+
+  buscarEstado() { 
+    if (this.vidas == 0){
+      return "perdeu";
+    }
+    if (!this.palavra.includes("_")){
+      return "ganhou";
+    }
+    return "aguardando chute"; 
+  }
 
   buscarDadosDoJogo() {
       return {
-          letrasChutadas: [], // Deve conter todas as letras chutadas
-          vidas: 6, // Quantidade de vidas restantes
-          palavra: [] // Deve ser um array com as letras que já foram acertadas ou o valor "_" para as letras não identificadas
+          letrasChutadas: this.letrasChutadas,
+          vidas: this.vidas,
+          palavra: this.palavra
       }
   }
 }
